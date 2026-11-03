@@ -1,0 +1,39 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+dist/
+**/build/
+**/.dart_tool/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Android artifacts
+**/android/.gradle/
+**/android/app/build/
+**/android/local.properties
+**/android/captures/
+**/android/.cxx/
+
+# iOS artifacts
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/App.framework
+**/ios/Flutter/Generated.xcconfig
+
+# Windows artifacts
+**/windows/flutter/ephemeral/
