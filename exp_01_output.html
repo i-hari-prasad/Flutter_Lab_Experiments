@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiment 01 - Fresh Fruits (Flutter Output)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #e2e8f0;
+    }
+
+    .header-bar {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .header-bar h1 {
+      font-size: 20px;
+      color: #f8fafc;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .header-bar p {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    /* Device Mockup Shell */
+    .device-frame {
+      width: 380px;
+      height: 760px;
+      background: #000;
+      border-radius: 46px;
+      padding: 12px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .notch {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #000;
+      border-radius: 12px;
+      z-index: 100;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 36px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 38px;
+      background: #2e7d32;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      z-index: 50;
+    }
+
+    /* Flutter AppBar */
+    .flutter-appbar {
+      background: #4caf50; /* Colors.green */
+      color: #ffffff;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+
+    .flutter-appbar .title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    /* Scrollable Body */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      background: #fbfdf9;
+    }
+
+    /* Welcome Container */
+    .welcome-container {
+      background: #e8f5e9; /* Colors.green.shade50 */
+      padding: 20px;
+      border-bottom: 1px solid #dcedc8;
+    }
+
+    .welcome-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1b5e20;
+      margin-bottom: 5px;
+    }
+
+    .welcome-subtitle {
+      font-size: 14.5px;
+      color: #388e3c;
+    }
+
+    /* Section Heading */
+    .section-heading {
+      padding: 20px 16px 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #212121;
+    }
+
+    /* Fruit Cards List */
+    .fruit-list {
+      padding: 0 12px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fruit-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .fruit-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(76, 175, 80, 0.2);
+    }
+
+    .fruit-card:active {
+      transform: scale(0.98);
+      background: #f1f8e9;
+    }
+
+    .fruit-emoji-box {
+      width: 65px;
+      height: 65px;
+      background: #e8f5e9;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      flex-shrink: 0;
+    }
+
+    .fruit-info {
+      flex: 1;
+    }
+
+    .fruit-name {
+      font-size: 17.5px;
+      font-weight: 700;
+      color: #212121;
+      margin-bottom: 4px;
+    }
+
+    .fruit-desc {
+      font-size: 13px;
+      color: #757575;
+      margin-bottom: 4px;
+    }
+
+    .fruit-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: #2e7d32;
+    }
+
+    .arrow-icon {
+      color: #9e9e9e;
+      font-size: 16px;
+      padding-right: 4px;
+    }
+
+    /* Toast Notification for click */
+    .toast {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(33, 33, 33, 0.92);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 200;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+    <h1>Experiment 01: Fresh Fruits Application</h1>
+    <p>Live Flutter Simulation • Flutter Material 3 Component Hierarchy</p>
+  </div>
+
+  <div class="device-frame">
+    <div class="notch"></div>
+    <div class="screen">
+      <!-- Simulated Phone Status Bar -->
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>📶 5G 🔋 100%</span>
+      </div>
+
+      <!-- Flutter AppBar -->
+      <header class="flutter-appbar">
+        <span class="title">Fresh Fruits 🍃</span>
+      </header>
+
+      <!-- Scrollable Flutter Body -->
+      <main class="content-area">
+        <!-- Welcome Container -->
+        <div class="welcome-container">
+          <h2 class="welcome-title">Welcome!</h2>
+          <p class="welcome-subtitle">Choose your favourite fresh fruits.</p>
+        </div>
+
+        <!-- Section Heading -->
+        <h3 class="section-heading">Available Fruits</h3>
+
+        <!-- ListView with Fruit Cards -->
+        <div class="fruit-list">
+          <div class="fruit-card" onclick="showToast('Selected Apple 🍎 (₹120 / kg)')">
+            <div class="fruit-emoji-box">🍎</div>
+            <div class="fruit-info">
+              <div class="fruit-name">Apple</div>
+              <div class="fruit-desc">Fresh and juicy red apples</div>
+              <div class="fruit-price">₹120 / kg</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <div class="fruit-card" onclick="showToast('Selected Banana 🍌 (₹60 / dozen)')">
+            <div class="fruit-emoji-box">🍌</div>
+            <div class="fruit-info">
+              <div class="fruit-name">Banana</div>
+              <div class="fruit-desc">Sweet and ripe bananas</div>
+              <div class="fruit-price">₹60 / dozen</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <div class="fruit-card" onclick="showToast('Selected Orange 🍊 (₹80 / kg)')">
+            <div class="fruit-emoji-box">🍊</div>
+            <div class="fruit-info">
+              <div class="fruit-name">Orange</div>
+              <div class="fruit-desc">Rich in Vitamin C</div>
+              <div class="fruit-price">₹80 / kg</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <div class="fruit-card" onclick="showToast('Selected Strawberry 🍓 (₹200 / box)')">
+            <div class="fruit-emoji-box">🍓</div>
+            <div class="fruit-info">
+              <div class="fruit-name">Strawberry</div>
+              <div class="fruit-desc">Fresh and delicious strawberries</div>
+              <div class="fruit-price">₹200 / box</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <div class="fruit-card" onclick="showToast('Selected Grapes 🍇 (₹100 / kg)')">
+            <div class="fruit-emoji-box">🍇</div>
+            <div class="fruit-info">
+              <div class="fruit-name">Grapes</div>
+              <div class="fruit-desc">Sweet seedless grapes</div>
+              <div class="fruit-price">₹100 / kg</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+
+          <div class="fruit-card" onclick="showToast('Selected Watermelon 🍉 (₹40 / kg)')">
+            <div class="fruit-emoji-box">🍉</div>
+            <div class="fruit-info">
+              <div class="fruit-name">Watermelon</div>
+              <div class="fruit-desc">Refreshing summer fruit</div>
+              <div class="fruit-price">₹40 / kg</div>
+            </div>
+            <div class="arrow-icon">›</div>
+          </div>
+        </div>
+      </main>
+
+      <div id="toast" class="toast"></div>
+    </div>
+  </div>
+
+  <script>
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
