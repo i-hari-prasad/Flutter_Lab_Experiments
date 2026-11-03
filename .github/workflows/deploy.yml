@@ -32,13 +32,16 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Verify Flutter Version
-        run: flutter --version
+      - name: Enable Flutter Web
+        run: |
+          flutter config --enable-web
+          flutter --version
 
       - name: Prepare Deployment Directory
         run: |
           mkdir -p dist
           cp index.html dist/index.html
+          touch dist/.nojekyll
 
       - name: Build All 10 Flutter Web Experiments
         run: |
